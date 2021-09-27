@@ -1,0 +1,43 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Average Maximum Tempearture for all states in 2020",
+    "width": 800,
+    "height": 600,
+    "data": {
+      "url": "https://raw.githubusercontent.com/adamL23/vega-lite-demo/main/js/STE_2016_AUST.json",
+      "format": {
+            "type": "topojson",
+            "feature": "STE_2016_AUST"
+          }
+    },
+    "transform": [{
+        "lookup": "properties.STE_NAME16",
+        "from": {
+          "data": {
+            "url": "https://raw.githubusercontent.com/adamL23/vega-lite-demo/main/Data/AustraliaRainFall_mod.csv"
+          },
+          "key": "State",
+          "fields": ["MaxTemp"]
+        }
+      }
+    ],
+    "projection": {
+      "type": "equirectangular"
+    },
+    "mark": {
+      "type": "geoshape"
+      },
+    "encoding": {
+      "color": {
+        "field": "MaxTemp",
+        "type": "quantitative",
+        "scale": {"scheme": "Oranges"}
+      },
+      "tooltip": [
+        {"field": "properties.STE_NAME16", "type": "nominal", "title": "Country"},
+        {"field": "MaxTemp", "type": "quantitative", "title": "Average Temperature"}
+      ]
+    },
+    "config": {}
+  }
+  
